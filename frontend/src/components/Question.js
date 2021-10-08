@@ -2,13 +2,12 @@ import styled from 'styled-components/macro'
 import Answer from './Answer'
 
 export default function Question({ question }) {
-  console.log('Question log', question.answers)
   return (
     <QuestionContainer>
       <QuestionText>{question.questionText}</QuestionText>
       <AnswerContainer>
         {question.answers.map(answer => (
-          <Answer answer={answer} />
+          <Answer answer={answer} key={answer.answerID} />
         ))}
       </AnswerContainer>
     </QuestionContainer>
