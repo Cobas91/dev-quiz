@@ -17,12 +17,14 @@ public class QuestionController {
     public QuestionController(QuestionService service){
         this.service = service;
     }
+
+
     @GetMapping("api/question")
     public List<Question> getAllQuestions(){
         return service.getAllQuestions();
     }
     @PostMapping("api/question")
-    public List<Question> getAllQuestions(@RequestBody Question newQuestion){
+    public List<Question> addNewQuestion(@RequestBody Question newQuestion){
         return service.addQuestion(newQuestion);
     }
 

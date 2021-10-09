@@ -1,3 +1,5 @@
+import styled from 'styled-components/macro'
+import './App.css'
 import Header from './components/Header'
 import Homepage from './components/Pages/Homepage'
 import useQuestions from './components/hooks/useQuestions'
@@ -7,7 +9,7 @@ import AddQuestion from './components/Pages/Add-Question'
 export default function App() {
   const { questions } = useQuestions()
   return (
-    <div className="App">
+    <AppContainer>
       <Header />
       <Switch>
         <Route exact path="/">
@@ -17,6 +19,8 @@ export default function App() {
           <AddQuestion />
         </Route>
       </Switch>
-    </div>
+    </AppContainer>
   )
 }
+
+const AppContainer = styled.div``
