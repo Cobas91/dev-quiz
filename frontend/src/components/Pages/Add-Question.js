@@ -1,26 +1,59 @@
 import * as React from 'react'
-
+import styled from 'styled-components/macro'
+import { useEffect, useState } from 'react'
+import NewAnswerElement from '../NewAnswerElement'
 export default function AddQuestion() {
+  const [answerOptions, setAnswerOptions] = useState([
+    { answerText: 'Erste Antwort', correct: true },
+    { answerText: 'Erste Antwort', correct: false },
+  ])
+
+  const handleChangeAnswer = (modifiedAnswer, modifiedAnswerIndex) => {
+    const newAnswerOptions = answerOptions
+    answerOptions.map((answer, index) => {
+      if (index === modifiedAnswerIndex) {
+        newAnswerOptions[index] = modifiedAnswer
+      }
+      return answer
+    })
+    setAnswerOptions(newAnswerOptions)
+  }
+
   return (
-    <body>
-      <form className="question">
-        <textarea placeholder="Insert your Question here...." />
-        <section>
-          <div className="answer-1">
-            <p>Answer 1</p>
-            <input className="answer-1-text" />
-            <p>Is Correct?</p>
-            <input type="radio" className="isCorrect" />
-          </div>
-          <div className="answer-2">
-            <p>Answer 2</p>
-            <input className="answer-2-text" />
-            <p>Is Correct?</p>
-            <input type="radio" className="isCorrect" />
-          </div>
-          <button type="button">New answer</button>
-        </section>
-      </form>
-    </body>
+    <AddQuestionContainer>
+      <NewQuestionContainer>
+        <QuestionText placeholder="Insert your Question here...." />
+        <NewAnswersContainer name="new-answer-container">
+          {answerOptions.map((answer, index) => (
+            <NewAnswerElement
+              key={index}
+              inCommingAnswer={answer}
+              index={index}
+              handleChangeAnswer={handleChangeAnswer}
+              inCommingCorrect={answer.correct}
+            />
+          ))}
+          <AddNewAnswerOption type="button">Add Answer</AddNewAnswerOption>
+        </NewAnswersContainer>
+      </NewQuestionContainer>
+      <SaveQuestionButton>Save Question</SaveQuestionButton>
+    </AddQuestionContainer>
   )
 }
+
+const NewQuestionContainer = styled.form`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  justify-content: center;
+`
+
+const QuestionText = styled.textarea``
+
+const NewAnswersContainer = styled.section``
+
+const AddNewAnswerOption = styled.button``
+
+const SaveQuestionButton = styled.button``
+
+const AddQuestionContainer = styled.section``
